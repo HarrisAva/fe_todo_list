@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthenticationService {
   private readonly tokenSubject = new BehaviorSubject<string | null>(null);
+  //  BehaviorSubject - check if there is a token in local storage
 
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -36,6 +37,10 @@ export class AuthenticationService {
     localStorage.removeItem('token');
     this.tokenSubject.next(null);
     this.router.navigate(['/login']);
+  }
+
+  signUp(user:any) {
+    return this.http.post('http://localhost:3000/users', user);
   }
 
 }
